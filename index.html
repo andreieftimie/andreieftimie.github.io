@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Andrei Eftimie</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Lato:400,400italic' rel='stylesheet'>
+    <style>
+      html {
+        height: 100%;
+      }
+      body {
+        font: 20px/34px Lato, sans-serif;
+        box-sizing: border-box;
+        min-height: 100%;
+        padding: 100px;
+        position: relative;
+        text-shadow: 1px 1px 1px white;
+      }
+      p:last-of-type {
+        bottom: 100px;
+        left: 100px;
+        position: absolute;
+      }
+      a {
+        color: #180ea6;
+      }
+      @media (max-width: 1024px) {
+        body {
+          padding: 40px;
+        }
+        p:last-of-type {
+          bottom: 40px;
+          left: 40px;
+          right: 40px;
+        }
+      }
+
+      canvas {
+        bottom: 0;
+        left: 0;
+        position: fixed;
+        right: 0;
+        top: 0;
+        z-index: -1;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Hi there.</p>
+    <p>Just <em>relax</em> for a second.</p>
+    <p>For anything else interesting get in touch via
+      <a href="mailto:andrei@eftimie.com">email</a>,
+      <a href="https://twitter.com/andreieftimie">twitter</a>,
+      <a href="https://github.com/andreieftimie">github</a>.
+    </p>
+
+    <canvas></canvas>
+
+    <script src="not-quite-fractal.js"></script>
+  </body>
+</html>
