@@ -118,16 +118,6 @@
       var IMG = 53;
       var figs = [];
 
-      function throttle(fn, wait) {
-        var time = Date.now();
-        return function() {
-          if (time + wait - Date.now() < 0) {
-            fn();
-            time = Date.now();
-          }
-        };
-      }
-
       var isInViewport = function(elem) {
         var bounding = elem.getBoundingClientRect();
         return (
@@ -148,7 +138,25 @@
         }
       }
 
-      window.addEventListener('scroll', throttle(whichElementVisible, 200));
+      // Setup a timer
+      var timeout;
+
+      // Listen for resize events
+      window.addEventListener(
+        'scroll',
+        function(event) {
+          // If there's a timer, cancel it
+          if (timeout) {
+            window.cancelAnimationFrame(timeout);
+          }
+
+          // Setup the new requestAnimationFrame()
+          timeout = window.requestAnimationFrame(function() {
+            whichElementVisible();
+          });
+        },
+        false,
+      );
 
       // Pad a sub 10 number with 0
       function pad(number) {
