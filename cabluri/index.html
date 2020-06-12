@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cum se fabrică un cablu?</title>
+    <style>
+      body {
+        max-width: 2048px;
+        margin: 0 auto;
+        padding: 0 40px;
+      }
+      .image {
+        max-width: 100%;
+      }
+      figure {
+        margin: 1em 0;
+      }
+    </style>
+    <script type="text/javascript">
+      var description = [
+        '',
+        'Intrare în hala de producție cabluri a Cableteam Sighișoara',
+        'Metaria primă: rulou de cupru',
+        'Se crează fire subțiri de cupru',
+        '',
+        ,
+        ,
+        'Care se împletesc într-o liță',
+        'Mașina se învârte în timp ce lița de cupru se rulează pe tambur',
+        'Lița pregătită pentru următorii pași',
+        ,
+        'Se îmbracă în plastic',
+        'Plastic galben + verde',
+        ,
+        'Plasticul proaspăt turnat în jurul liței se răcește',
+        'Cablul simplu format se pune pe tamburi',
+        'Din mai multe cabluri simple se formează un cablu complex',
+        ,
+        ,
+        'Un cablu format din 7 cabluri împletite',
+        ,
+        'Mașina care le împletește',
+        ,
+        'Părțile din exterior se învârt în jurul tamburului pentru a "împleti" cablul',
+        'Un cablu cu centru textil (pentru structură)',
+        'Mai multe cabluri simple în jurul centrului textil',
+        '',
+        'Mașinările (oprită în acest cadru) care se învârte în jurul axului cablului pentru a "împleti" firele',
+        'încă un "strat" de cabluri',
+        'Cablu complex format din multe cabluri subțiri',
+        'Cabluri în diferite culori',
+        'Se îmbracă un cablu pentru rezisteță sporită',
+        'Se trece prin talc',
+        ,
+        ,
+        'Peleți de plastic pentru îmbrăcarea cablului',
+        ,
+        'Și peleți cu colorant',
+        'Peleții trec prin acest "extruder" la temperaturi ridicate. Plasticul se topește',
+        'Diferite duze prin care se împinge plasticul topit',
+        'Plasticul topit este "turnat" sub presiune în jurul viitorului cablu',
+        'Cablul rezultat trebuie răcit',
+        'Se imprimă cu laser diferite informații pe cablu (negru pe negru în acest caz)',
+        'De la grosime și materialele folosite, la banda pe care s-a făcut și codul operatorului. Aceste informații pot fi folosite să identifici exact momentul creării unui cablu',
+        'Mai multe sisteme de control al calitatății: verifică dimensiunea și strucutra cablului (de ex cantitate incorectă de metal)',
+        'Cablul final se rulează pe tamburi. Mecanism de transfer între tamburi fără a opri producția',
+        'Anumite cabluri se îmbracă în strat protector metalic. Stânga: cablu inițial. Dreapta: cablu îmbrăcat',
+        'Mașină care împltește o "armură" metalică în jurul unui cablu',
+        ,
+        'Cablul îmbrăcat cu "armură"',
+        'Sortimente de cabluri finalizate',
+        'Împachetate pentru comerț',
+        ,
+        'Hala de producție a fabricii',
+      ];
+
+      var IMG = 53;
+
+      // Pad a sub 10 number with 0
+      function pad(number) {
+        return number < 10 ? '0' + number : number;
+      }
+
+      function init() {
+        var slideshow = document.querySelector('#slideshow');
+        var figs = [];
+        // create all
+        for (var i = 1; i <= IMG; i++) {
+          var fig = document.createElement('figure');
+          var img = document.createElement('img');
+          img.src = './cabluri-' + pad(i) + '.jpg';
+          img.className = 'image';
+          var caption = document.createElement('figcaption');
+          var text = document.createTextNode(description[i] || '');
+          caption.appendChild(text);
+          fig.appendChild(img);
+          fig.appendChild(text);
+
+          // Save a reference for future use
+          figs.push(fig);
+
+          // Add to dom
+          slideshow.appendChild(fig);
+        }
+      }
+
+      window.addEventListener('DOMContentLoaded', init);
+    </script>
+  </head>
+  <body>
+    <h1>Cum se fabrică un cablu?</h1>
+    <h3>Fotoreportaj de Andrei Eftimie — FSPAC, Jurnalism, an 1, sem 2</h3>
+    <blockquote>
+      <legend>DEX '09</legend>
+      <b>CÁBLU</b>, cabluri, s. n. <i>[&hellip;]</i>
+      <b
+        >2. Conductă electrică formată din mai multe fire izolate (acoperite cu
+        un înveliș vegetal sau metalic).</b
+      >
+    </blockquote>
+    <p>
+      Acest material explorează vizual procesul prin care se crează un cablu. De
+      la materia primă la firul care ne transportă informația către platformele
+      sociale.
+    </p>
+    <div id="slideshow"></div>
+  </body>
+</html>
