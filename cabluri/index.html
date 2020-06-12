@@ -7,7 +7,8 @@
       body {
         max-width: 1560px;
         margin: 0 auto;
-        padding: 0 40px;
+        padding: 0 20px 0 40px;
+        font-family: Helvetica, Calibri, Arial, sans-serif;
       }
       .image {
         max-width: 100%;
@@ -17,6 +18,43 @@
       figure {
         max-width: min(100%, 1560px);
         margin: 1em auto;
+      }
+      figcaption {
+        padding: 10px;
+        background: #3b4a61;
+        color: #f4f4f4;
+      }
+      #pager {
+        position: fixed;
+        left: 2px;
+        top: 2px;
+        bottom: 0;
+        overflow: auto;
+        font-size: 12px;
+      }
+      #pager ol {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+      #pager a {
+        display: block;
+        width: 20px;
+        height: 12px;
+        line-height: 12px;
+        margin-bottom: 1px;
+        text-align: center;
+        text-decoration: none;
+        background: #f4f4f4;
+        border: 1px dotted #aaa;
+        color: #3b4a61;
+      }
+      #pager a:hover {
+        background: #e2dede;
+      }
+      #pager a.active {
+        background: #3b4a61;
+        color: #f4f4f4;
       }
     </style>
     <script type="text/javascript">
@@ -78,32 +116,91 @@
       ];
 
       var IMG = 53;
+      var figs = [];
+
+      function throttle(fn, wait) {
+        var time = Date.now();
+        return function() {
+          if (time + wait - Date.now() < 0) {
+            fn();
+            time = Date.now();
+          }
+        };
+      }
+
+      var isInViewport = function(elem) {
+        var bounding = elem.getBoundingClientRect();
+        return (
+          bounding.top >= 0 &&
+          bounding.left >= 0 &&
+          bounding.bottom <=
+            (window.innerHeight || document.documentElement.clientHeight) &&
+          bounding.right <=
+            (window.innerWidth || document.documentElement.clientWidth)
+        );
+      };
+
+      function whichElementVisible() {
+        var found = figs.find(fig => isInViewport(fig));
+        var id = found && found.id;
+        if (id) {
+          activePager(id);
+        }
+      }
+
+      window.addEventListener('scroll', throttle(whichElementVisible, 200));
 
       // Pad a sub 10 number with 0
       function pad(number) {
         return number < 10 ? '0' + number : number;
       }
 
+      function activePager(id) {
+        document
+          .querySelectorAll('#pager a')
+          .forEach(el => el.classList.remove('active'));
+        document
+          .querySelector('#pager a[href="#' + id + '"]')
+          .classList.add('active');
+      }
+
       function init() {
         var slideshow = document.querySelector('#slideshow');
-        var figs = [];
+        var pager = document.querySelector('#pager');
+        var ol = document.createElement('ol');
+        pager.appendChild(ol);
+
         // create all
         for (var i = 1; i <= IMG; i++) {
+          // image
           var fig = document.createElement('figure');
+          fig.id = i;
           var img = document.createElement('img');
           img.src = './cabluri-' + pad(i) + '.jpg';
           img.className = 'image';
-          var caption = document.createElement('figcaption');
-          var text = document.createTextNode(description[i] || '');
-          caption.appendChild(text);
           fig.appendChild(img);
-          fig.appendChild(text);
+
+          if (description[i]) {
+            var text = document.createTextNode(description[i]);
+            var caption = document.createElement('figcaption');
+            caption.appendChild(text);
+            fig.appendChild(caption);
+          }
 
           // Save a reference for future use
           figs.push(fig);
 
           // Add to dom
           slideshow.appendChild(fig);
+
+          // pager
+          var li = document.createElement('li');
+          var a = document.createElement('a');
+          a.href = '#' + i;
+          var linkText = document.createTextNode(i);
+          a.appendChild(linkText);
+          li.appendChild(a);
+          ol.appendChild(li);
         }
       }
 
@@ -127,5 +224,6 @@
       sociale.
     </p>
     <div id="slideshow"></div>
+    <div id="pager"></div>
   </body>
 </html>
